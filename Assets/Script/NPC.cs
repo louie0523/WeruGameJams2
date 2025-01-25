@@ -17,6 +17,22 @@ public class NPC : MonoBehaviour
     private Vector3 RightEndPosition;
     public bool isFirst = false;
 
+    public enum NpcActive
+    {
+        Walk,
+        Idle,
+    }
+
+    public NpcActive npcActive;
+
+    public enum NpcType
+    {
+        Npc,
+        BadNpc,
+    }
+
+    public NpcType npcType;
+
     private float waitTimer = 0f;
 
     private void Start()
@@ -27,8 +43,13 @@ public class NPC : MonoBehaviour
         StartPosition = transform.position;
         LeftEndPosition = StartPosition - new Vector3(Left, 0, 0);
         RightEndPosition = StartPosition + new Vector3(Right, 0, 0);
-
-        StartCoroutine(NPCMovement());
+        if(npcActive == NpcActive.Walk)
+        {
+            StartCoroutine(NPCMovement());
+        } else
+        {
+            animator.SetBool("Walk", false);
+        }
     }
 
     private IEnumerator NPCMovement()
@@ -39,7 +60,9 @@ public class NPC : MonoBehaviour
             yield return StartCoroutine(WaitAtPosition());
             if (!isFirst)
             {
-                this.transform.rotation = Quaternion.Euler(0f, -180f, 0f);
+                Vector3 currentRotation = this.transform.eulerAngles;
+                currentRotation.y += 180f;
+                this.transform.rotation = Quaternion.Euler(currentRotation);
                 isFirst = true;
             }
             yield return StartCoroutine(WalkToPosition(RightEndPosition));

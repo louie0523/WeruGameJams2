@@ -18,13 +18,13 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 2
   threshold:
     overrideState: 1
     value: 1
   softKnee:
     overrideState: 1
-    value: 0.5
+    value: 0.457
   clamp:
     overrideState: 1
     value: 65472
@@ -74,10 +74,10 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.345
+    value: 0.4
   smoothness:
     overrideState: 1
-    value: 0.2
+    value: 0.321
   roundness:
     overrideState: 1
     value: 1
@@ -133,10 +133,10 @@ MonoBehaviour:
     value: 1
   size:
     overrideState: 1
-    value: 1.02
+    value: 1.25
   lumContrib:
     overrideState: 1
-    value: 0.8
+    value: 1
 --- !u!114 &1937425827430730513
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
   m_Name: LensDistortion
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -192,10 +192,10 @@ MonoBehaviour:
     value: {x: 54.00001, y: 99}
   minLuminance:
     overrideState: 1
-    value: 0.2
+    value: 0.1
   maxLuminance:
     overrideState: 1
-    value: 1.2
+    value: 0.9
   keyValue:
     overrideState: 1
     value: 1
