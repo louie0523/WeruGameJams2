@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public bool FaceRight = true;
     public float Speed = 1.0f;
     bool isWalk = false;
+    public bool isKey = false;
 
     private SpriteRenderer spriteRenderer;
 

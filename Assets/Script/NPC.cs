@@ -17,6 +17,7 @@ public class NPC : MonoBehaviour
     private Vector3 RightEndPosition;
     public bool isFirst = false;
 
+    
     public enum NpcActive
     {
         Walk,

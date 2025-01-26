@@ -24,6 +24,9 @@ public class MagicCircle : MonoBehaviour
     private float elapsedTime = 0f; // 경과 시간
     private bool imThisRoundClear = false;
 
+    public AudioSource sfxSource;
+    public AudioClip[] soundEffects;
+
     private void Update()
     {
         if (Vector3.Distance(Player.transform.position, this.transform.position) <= Distance)
@@ -67,6 +70,7 @@ public class MagicCircle : MonoBehaviour
                 if (GrowingCircle.GetComponent<RectTransform>().localScale.x >= 770f && !imThisRoundClear)
                 {
                     Debug.Log("커지는 원 크기가 너무 커졌습니다! 자동 탈락.");
+                    PlaySoundEffect(1);
                     DeactivateMagicUI(); // 실패 시 UI 종료
                 }
             }
@@ -116,9 +120,11 @@ public class MagicCircle : MonoBehaviour
         }
 
         Debug.Log("마법진 클리어!");
+        PlaySoundEffect(2);
         isClear = true;
         isActive = false;
         MagicUI.SetActive(false); // UI 비활성화
+        gameObject.SetActive(false);
     }
 
     private void CheckPlayerInput()
@@ -136,6 +142,7 @@ public class MagicCircle : MonoBehaviour
                 isInputReceived = true;
                 roundInProgress = false;
                 imThisRoundClear = true;
+                PlaySoundEffect(0);
             }
         }
         else
@@ -143,6 +150,7 @@ public class MagicCircle : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("판정 실패! UI 종료." + (judgmentScaleX - growingScaleX));
+                PlaySoundEffect(1);
                 DeactivateMagicUI();
             }
         }
@@ -175,5 +183,14 @@ public class MagicCircle : MonoBehaviour
         roundInProgress = false;
         isWaitingForInput = false;
         isInputReceived = false;
+    }
+
+    private void PlaySoundEffect(int index)
+    {
+        if (index >= 0 && index < soundEffects.Length && sfxSource != null)
+        {
+            sfxSource.PlayOneShot(soundEffects[index]);
+            Debug.Log($"사운드 {index} 재생");
+        }
     }
 }

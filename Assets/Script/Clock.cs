@@ -16,6 +16,8 @@ public class Clock : MonoBehaviour
     private bool First = false;
     private bool End = false;
 
+    public GameObject[] DestroyGameObjectList;
+
     private void Start()
     {
         if (!First)
@@ -47,6 +49,10 @@ public class Clock : MonoBehaviour
 
     IEnumerator Devil()
     {
+        foreach (GameObject go in DestroyGameObjectList)
+        {
+            go.SetActive(false);
+        }
         animator.SetTrigger("Start");
         bgmSource.Stop();
         bgmSource.clip = DevilBgm[0];
