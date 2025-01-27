@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float Speed = 1.0f;
     bool isWalk = false;
     public bool isKey = false;
+    public bool GoingNow = false;
 
     private SpriteRenderer spriteRenderer;
 
@@ -63,5 +64,16 @@ public class Player : MonoBehaviour
         FaceRight = !FaceRight;
         spriteRenderer.flipX = !FaceRight;
 
+    }
+
+    public void ImNowGo()
+    {
+        GoingNow = true;
+        Invoke("GoingNowFalse", 0.5f);
+    }
+
+    void GoingNowFalse()
+    {
+        GoingNow = false;
     }
 }

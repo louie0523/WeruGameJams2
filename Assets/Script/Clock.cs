@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,7 +16,8 @@ public class Clock : MonoBehaviour
     public AudioClip[] soundEffects;
     private Animator animator;
     private bool First = false;
-    private bool End = false;
+    public bool End = false;
+    public TextMeshProUGUI PlatTime;
 
     public GameObject[] DestroyGameObjectList;
 
@@ -30,7 +33,7 @@ public class Clock : MonoBehaviour
             Debug.Log("시계바늘 돌아감");
         }
     }
-
+    
     void TimeReWinder()
     {
         RectTransform LL = LargeLine.GetComponent<RectTransform>();
@@ -45,6 +48,14 @@ public class Clock : MonoBehaviour
             End = true;
             StartCoroutine("Devil");
         }
+    }
+
+    public void Clear(float time)
+    {
+        PlatTime.text = "Time : " + (int)time + "'s";
+        End = true;
+        Debug.Log("클리어!");
+        StartCoroutine("Win");
     }
 
     IEnumerator Devil()
@@ -64,6 +75,28 @@ public class Clock : MonoBehaviour
         PlaySoundEffect(Ran);
     }
 
+    IEnumerator Win()
+    {
+        foreach (GameObject go in DestroyGameObjectList)
+        {
+            go.SetActive(false);
+        }
+        animator.SetTrigger("Clear");
+        bgmSource.Stop();
+        bgmSource.clip = DevilBgm[1];
+        bgmSource.Play();
+        yield return new WaitForSeconds(10f);
+        bgmSource.Stop();
+        PlaySoundEffect(12);
+        //Btns[0].SetActive(false);
+        //Btns[1].SetActive(false);
+        //Btns[2].SetActive(true);
+        //Btns[3].SetActive(true);
+        yield return new WaitForSeconds(1f);
+        PlaySoundEffect(13);
+
+    }
+
     private void PlaySoundEffect(int index)
     {
         if (index >= 0 && index < soundEffects.Length && sfxSource != null)
@@ -77,5 +110,10 @@ public class Clock : MonoBehaviour
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
+    }
+
+    public void Title()
+    {
+        SceneManager.LoadScene(0);
     }
 }

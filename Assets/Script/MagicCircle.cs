@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MagicCircle : MonoBehaviour
 {
+    public GameObject MagicBook;
     public float GreatResult = 55f;
     public GameObject Player; // 플레이어 오브젝트
     public GameObject MagicUI; // 마법진 UI 오브젝트
@@ -26,13 +27,14 @@ public class MagicCircle : MonoBehaviour
 
     public AudioSource sfxSource;
     public AudioClip[] soundEffects;
+    public GameObject MagicBookIcon;
 
     private void Update()
     {
-        if (Vector3.Distance(Player.transform.position, this.transform.position) <= Distance)
+        if (Vector3.Distance(Player.transform.position, this.transform.position) <= Distance && MagicBook.activeSelf)
         {
             isInRange = true;
-
+            MagicBookIcon.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F) && !isClear && !isActive)
             {
                 ActivateMagicUI(); // 마법 UI 활성화
@@ -41,6 +43,7 @@ public class MagicCircle : MonoBehaviour
         else
         {
             isInRange = false;
+            MagicBookIcon.SetActive(false);
             if (isActive) // 범위 밖으로 나가면 UI 비활성화
             {
                 DeactivateMagicUI();
@@ -120,6 +123,7 @@ public class MagicCircle : MonoBehaviour
         }
 
         Debug.Log("마법진 클리어!");
+        MagicBookIcon.SetActive(false);
         PlaySoundEffect(2);
         isClear = true;
         isActive = false;
@@ -177,6 +181,7 @@ public class MagicCircle : MonoBehaviour
     private void DeactivateMagicUI()
     {
         Debug.Log("마법진을 종료합니다.");
+        MagicBookIcon.SetActive(false);
         isActive = false;
         MagicUI.SetActive(false);
         currentRound = 0;

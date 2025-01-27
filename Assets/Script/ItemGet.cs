@@ -9,6 +9,7 @@ public class ItemGet : MonoBehaviour
     public AudioClip[] soundEffects;
     public GameObject GetTrue;
     Animator animator;
+    public GameObject[] PlusObject;
     public enum ItemType
     {
         Key,
@@ -35,6 +36,10 @@ public class ItemGet : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.F))
             {
                 Debug.Log(itemType + " æ∆¿Ã≈€¿ª »πµÊ«œºÃΩ¿¥œ¥Ÿ.");
+                if(itemType == ItemType.Knife)
+                {
+                    PlusObject[0].SetActive(true);
+                }
                 PlaySoundEffect(0);
                 thisItemGet = true;
                 itemIcon.SetActive(true);
